@@ -1,0 +1,32 @@
+name: Bug report
+description: Something doesn't work as expected
+labels: [bug]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Upload Portal version
+      description: See Package Center → Upload Portal
+      placeholder: 1.0.0-2610152210
+    validations:
+      required: true
+  - type: input
+    id: dsm
+    attributes:
+      label: DSM version and NAS model
+      placeholder: DSM 7.2.2 – DS923+
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead? Screenshots help.
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Relevant log lines
+      description: From /var/packages/UploadPortal/var/server.log (remove any personal data)
+      render: text

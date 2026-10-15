@@ -1,0 +1,62 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+
+      - name: Check that the tag matches package.json
+        run: |
+          PKG="v$(node -p "require('./package.json').version")"
+          if [ "$PKG" != "$GITHUB_REF_NAME" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match package.json version $PKG"; exit 1
+          fi
+
+      - name: Build .spk
+        run: ./build.sh
+
+      - name: Stable download name (…/releases/latest/download/UploadPortal.spk)
+        run: cp dist/UploadPortal-*.spk dist/UploadPortal.spk
+
+      - name: Release notes from CHANGELOG.md
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          awk -v v="$VERSION" '
+            $0 ~ "^## \\[" v "\\]" {found=1; next}
+            found && /^## \[/ {exit}
+            found && /^\[.*\]: / {next}
+            found {print}
+          ' CHANGELOG.md > notes.md
+          cat >> notes.md <<'NOTES'
+
+          ---
+          ### Installation
+          1. Download **UploadPortal-*.spk** below.
+          2. DSM → **Package Center → Settings → General → Trust Level → Any publisher**.
+          3. **Package Center → Manual Install** → select the file.
+
+          📖 [User guide](https://github.com/ronaldjonkers/SynologyUpload/blob/main/docs/USER-GUIDE.md) · 🇳🇱 [Handleiding](https://github.com/ronaldjonkers/SynologyUpload/blob/main/docs/HANDLEIDING.md)
+          NOTES
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: Upload Portal ${{ github.ref_name }}
+          body_path: notes.md
+          files: |
+            dist/UploadPortal-*.spk
+            dist/UploadPortal-*.spk.sha256
+            dist/UploadPortal.spk

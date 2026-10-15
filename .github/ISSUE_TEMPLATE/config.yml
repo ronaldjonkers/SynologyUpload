@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 User guide
+    url: https://github.com/ronaldjonkers/SynologyUpload/blob/main/docs/USER-GUIDE.md
+    about: Installation, folder permissions, HTTPS and troubleshooting
+  - name: 🔒 Report a security vulnerability
+    url: https://github.com/ronaldjonkers/SynologyUpload/security/advisories/new
+    about: Please report security issues privately

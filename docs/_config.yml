@@ -1,0 +1,18 @@
+# GitHub Pages (Settings → Pages → Deploy from branch → main /docs)
+title: Upload Portal for Synology NAS
+description: Free Synology DSM 7 package for secure, password-protected upload links. Receive files from clients directly into a folder on your NAS, with drag & drop, large file support and live upload speed.
+url: https://ronaldjonkers.github.io
+baseurl: /SynologyUpload
+lang: en
+author: Ronald Jonkers
+logo: /images/icon.png
+theme: jekyll-theme-cayman
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+social:
+  name: Ronald Jonkers
+  links:
+    - https://github.com/ronaldjonkers
+github:
+  repository_url: https://github.com/ronaldjonkers/SynologyUpload

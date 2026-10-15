@@ -1,0 +1,4 @@
+#!/bin/sh
+. "$(dirname "$0")/common.sh"
+mkdir -p "$PKG_VAR"
+exit 0

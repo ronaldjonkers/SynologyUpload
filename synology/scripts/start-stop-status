@@ -1,0 +1,44 @@
+#!/bin/sh
+. "$(dirname "$0")/common.sh"
+
+[ -f "$CONFIG_FILE" ] && . "$CONFIG_FILE"
+
+start() {
+    is_running && return 0
+    NODE="$(find_node)"
+    if [ -z "$NODE" ]; then
+        echo "Node.js not found. Install Node.js v20 from Package Center." >> "${SYNOPKG_TEMP_LOGFILE:-/dev/null}"
+        return 1
+    fi
+    # Cap the log at ~5 MB
+    if [ -f "$LOG_FILE" ] && [ "$(wc -c < "$LOG_FILE")" -gt 5242880 ]; then
+        mv -f "$LOG_FILE" "${LOG_FILE}.1"
+    fi
+    cd "${PKG_DEST}/app" || return 1
+    NODE_ENV=production PORT="$PORT" DATA_DIR="$PKG_VAR" SHARE_NAME="${SHARE_NAME:-}" TZ="${TZ:-}" \
+        nohup "$NODE" "${PKG_DEST}/app/server.js" >> "$LOG_FILE" 2>&1 &
+    echo $! > "$PID_FILE"
+    sleep 2
+    is_running
+}
+
+stop() {
+    if is_running; then
+        PID="$(cat "$PID_FILE")"
+        kill "$PID" 2>/dev/null
+        i=0
+        while kill -0 "$PID" 2>/dev/null && [ $i -lt 20 ]; do sleep 0.5; i=$((i + 1)); done
+        kill -9 "$PID" 2>/dev/null
+    fi
+    rm -f "$PID_FILE"
+    return 0
+}
+
+case "$1" in
+    start) start; exit $? ;;
+    stop) stop; exit 0 ;;
+    restart) stop; start; exit $? ;;
+    status) is_running && exit 0 || exit 3 ;;
+    log) echo "$LOG_FILE"; exit 0 ;;
+    *) exit 1 ;;
+esac

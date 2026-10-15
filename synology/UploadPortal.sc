@@ -1,0 +1,5 @@
+[UploadPortal]
+title="Upload Portal"
+desc="Upload Portal"
+port_forward="yes"
+dst.ports="8090/tcp"

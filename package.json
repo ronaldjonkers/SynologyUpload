@@ -1,0 +1,42 @@
+{
+  "name": "synology-upload-portal",
+  "version": "1.0.0",
+  "description": "Upload Portal for Synology DSM 7: secure, password-protected upload links (file requests) that save directly to a folder on your NAS.",
+  "keywords": [
+    "synology",
+    "dsm",
+    "dsm7",
+    "nas",
+    "spk",
+    "package-center",
+    "file-upload",
+    "upload-link",
+    "file-request",
+    "drag-and-drop",
+    "chunked-upload",
+    "self-hosted"
+  ],
+  "homepage": "https://github.com/ronaldjonkers/SynologyUpload#readme",
+  "bugs": {
+    "url": "https://github.com/ronaldjonkers/SynologyUpload/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ronaldjonkers/SynologyUpload.git"
+  },
+  "license": "MIT",
+  "author": "Ronald Jonkers",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "build": "./build.sh",
+    "check": "node --check server.js && node --check cgi.js && node --check public/upload.js && node --check public/common.js && node --check synology/ui/web/admin.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
