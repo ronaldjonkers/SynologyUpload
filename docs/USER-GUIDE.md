@@ -1,5 +1,5 @@
 ---
-title: User guide – Upload Portal for Synology NAS (DSM 7)
+title: User guide
 description: Step-by-step guide to install Upload Portal on a Synology NAS, create password-protected upload links per folder, set folder permissions and share links securely over HTTPS.
 ---
 

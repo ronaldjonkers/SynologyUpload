@@ -1,5 +1,5 @@
 ---
-title: Upload Portal for Synology NAS – secure upload links for DSM 7
+title: Secure upload links for Synology DSM 7
 description: Free, open-source Synology package to receive files from clients on your NAS. Password-protected upload links per folder, drag & drop, large files, live upload speed. A self-hosted alternative to WeTransfer and Dropbox File Requests.
 ---
 

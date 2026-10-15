@@ -1,5 +1,5 @@
 ---
-title: Handleiding – Upload Portal voor Synology NAS (DSM 7)
+title: Handleiding (Nederlands)
 description: Stap-voor-stap handleiding om Upload Portal op een Synology NAS te installeren, beveiligde uploadlinks per map te maken, maprechten in te stellen en links veilig via HTTPS te delen.
 ---
 
